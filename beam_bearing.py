@@ -14,7 +14,8 @@ st.set_page_config(layout="wide")
 st.title("Timber Beam Bearing Calculator V2")
 
 ''' The idea here is to speed up the overall process of designing and detailing buildings with many different timber bearing connections. This will
-allow the engineer to upload a set of parameters and quickly calculate viable connection designs then print a schedule for their drawing.'''
+allow the engineer to upload a set of parameters and quickly calculate viable connection designs then print a schedule for their drawing. Please upload
+a CSV file in the proper format.'''
 
 
 import streamlit as st
@@ -26,8 +27,11 @@ if uploaded_file is not None:
 
     df = pd.read_csv(uploaded_file)
 
-    st.title("Hello world!")  # add a title
-    st.write(df)  # visualize my dataframe in the Streamlit app
+    st.title("See below for your connection parameters!")  
+
+    edited_df = st.data_editor(df)
+    
+    #st.write(df)  # visualize my dataframe in the Streamlit app
 
 
 
