@@ -1,9 +1,6 @@
 import streamlit as st
 import beam_bearing_module as bbm
 
-from handcalcs.decorator import handcalc
-calc_renderer = handcalc()
-
 
 # For Later Versions - a 20mm subtraction of bearing width to account for the chamfer that is generally done around corners at connection to simplify CNC
 # - the ignoring of remaining column material around the connection when the remaining material is not thick enough to rely on it being there after transport
@@ -14,7 +11,35 @@ calc_renderer = handcalc()
 
 st.set_page_config(layout="wide")
 
-st.title("Timber Beam Bearing Calculator")
+st.title("Timber Beam Bearing Calculator V2")
+
+''' The idea here is to speed up the overall process of designing and detailing buildings with many different timber bearing connections. This will
+allow the engineer to upload a set of parameters and quickly calculate viable connection designs then print a schedule for their drawing.'''
+
+
+import streamlit as st
+import pandas as pd
+from io import StringIO
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+
+    df = pd.read_csv(uploaded_file)
+
+    st.title("Hello world!")  # add a title
+    st.write(df)  # visualize my dataframe in the Streamlit app
+
+
+
+
+
+
+
+
+
+
+
+
 
 st.sidebar.subheader("Beam 1 Parameters")
 beam1_width = st.sidebar.number_input("Beam 1 Width (in)", value = 6)
@@ -212,39 +237,6 @@ with col2:
 
 
 
-@handcalc()
-def handcalc(F_c_perp:float, bearingwidth_nonfire:float, bearinglength_nonfire:float, bearingwidth_fire:float, bearinglength_fire:float, load_factored:float, load_unfactored:float, C_M=1, C_t=1, C_b=1, K_F=1.67, phi=0.9):        
-    F_c_perp_prime = F_c_perp * C_M * C_t * C_b * K_F * phi
-
-    Areqd_nonfire = load_factored/F_c_perp_prime
-
-    bearingarea_nonfire = bearingwidth_nonfire * bearinglength_nonfire
-
-    ratio_nonfire = Areqd_nonfire/bearingarea_nonfire
-
-    Areqd_fire = load_unfactored/F_c_perp_prime
-
-    bearingarea_fire = bearingwidth_fire * bearinglength_fire
-
-    ratio_fire = Areqd_fire/bearingarea_fire
-
-    return locals()
-
-sample_b1_nonfire_w = b1_nonfire[1]
-sample_b1_nonfire_l = b1_nonfire[2]
-sample_b1_fire_w = b1_fire[1]
-sample_b1_fire_l = b1_fire[2]
-sample_f_loads = loads[0]
-sample_u_loads = loads[1]
-
-
-
-latex_code, result = handcalc(F_c_perp, sample_b1_nonfire_w, sample_b1_nonfire_l, sample_b1_fire_w, sample_b1_fire_l, sample_f_loads, sample_u_loads)
-
-calc_expander_a = st.expander(label="Beam 1 Sample Calculation")
-
-with calc_expander_a:
-    st.latex(latex_code)
 
 
 
