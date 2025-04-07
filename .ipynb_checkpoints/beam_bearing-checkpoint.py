@@ -54,7 +54,9 @@ def run_check(node_df):
     return b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads 
 
 
-df_capacity = node_df.apply(run_check, axis=1)
+node_df.write
+
+#df_capacity = node_df.apply(run_check, axis=1)
 
 
 output_df = node_df.copy()
