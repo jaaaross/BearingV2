@@ -20,58 +20,60 @@ a CSV file in the proper format.'''
 
 import streamlit as st
 import pandas as pd
-from io import StringIO
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
 
     df = pd.read_csv(uploaded_file)
 
-    st.title("See below for your connection parameters!")  
+    st.write("See below for your connection parameters! Everything can be edited here.")  
 
-    edited_df = st.data_editor(df)
+    node_df = st.data_editor(df)
     
-    #st.write(df)  # visualize my dataframe in the Streamlit app
+
+def run_check(node_df):
+    BearingNode = bbm.BearingNode(
+        node_df['B1 Width'],
+        node_df['B1 Depth'],
+        node_df['B1 DL'],
+        node_df['B1 LL'],
+        node_df['B1 Route Length'],
+        node_df['B2 Width'],
+        node_df['B2 Depth'],
+        node_df['B2 DL'],
+        node_df['B2 LL'],
+        node_df['B2 Route Length'],
+        node_df['C Width'],
+        node_df['C Depth'],
+        node_df['F_c_perp'],
+        3.2
+        )
+
+    b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
+
+    return b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads 
+
+
+output_df = node_df.copy()
+
+output_df.drop(output_df.columns[[3,4,8,9]], axis=1, inplace=True)
+
+b1_nonfire_capacity = []
+b2_nonfire_capacity = []
+
+for row in df_capacity:
+    b1_nonfire_capacity.append(row[0][0])
+    b2_nonfire_capacity.append(row[1][0])
+
+output_df.insert(3, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
+output_df.insert(11, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
+
+output_df.write
 
 
 
 
 
-
-
-
-
-
-
-
-
-st.sidebar.subheader("Beam 1 Parameters")
-beam1_width = st.sidebar.number_input("Beam 1 Width (in)", value = 6)
-beam1_depth = st.sidebar.number_input("Beam 1 Depth (in)", value = 10)
-beam1_dead_load = st.sidebar.number_input("Beam 1 Dead Load (lbs)", value = 1000)
-beam1_live_load = st.sidebar.number_input("Beam 1 Live Load (lbs)", value = 1000)
-
-st.sidebar.subheader("Beam 2 Parameters")
-beam2_width = st.sidebar.number_input("Beam 2 Width (in)", value = 8)
-beam2_depth = st.sidebar.number_input("Beam 2 Depth (in)", value = 12)
-beam2_dead_load = st.sidebar.number_input("Beam 2 Dead Load (lbs)", value = 2000)
-beam2_live_load = st.sidebar.number_input("Beam 2 Live Load (lbs)", value = 3000)
-
-st.sidebar.subheader("Column Parameters")
-column_width = st.sidebar.number_input("Column Width (in)", value = 8)
-column_depth = st.sidebar.number_input("Column Depth (in)", value = 10)
-
-st.sidebar.subheader("Design Parameters")
-F_c_perp = st.sidebar.number_input("F_c_perp (psi)", value = 430)
-
-
-FRR = st.sidebar.selectbox(
-    "Fire Design Requirement",
-    ("0 hour", "1 hour", "2 hour")
-)
-
-beam1_route_length = st.slider(label="Beam 1 Routing Length (in)", key = 0, min_value = float(2.25), max_value = float(column_depth), step=float(0.125))
-beam2_route_length = st.slider(label="Beam 2 Routing Length (in)", key = 1, min_value = float(2.25), max_value = float(column_depth), step=float(0.125))
 
 if FRR == "0 hour":
     char_depth = 0
