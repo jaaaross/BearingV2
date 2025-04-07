@@ -23,12 +23,12 @@ import pandas as pd
 
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-
     df = pd.read_csv(uploaded_file)
-
     st.write("See below for your connection parameters! Everything can be edited here.")  
 
-    node_df = st.data_editor(df)
+    node_df = st.data_editor(df, num_rows="dynamic")
+    node_df.write
+    df_capacity = node_df.apply(run_check, axis=1)
     
 
 def run_check(node_df):
@@ -54,9 +54,9 @@ def run_check(node_df):
     return b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads 
 
 
-node_df.write
 
-#df_capacity = node_df.apply(run_check, axis=1)
+
+
 
 
 output_df = node_df.copy()
