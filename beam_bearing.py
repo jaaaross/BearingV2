@@ -59,7 +59,7 @@ def run_check(node_df):
 
 
 
-output_df = node_df.copy()
+#output_df = node_df.copy()
 
 output_df.drop(output_df.columns[[3,4,8,9]], axis=1, inplace=True)
 
