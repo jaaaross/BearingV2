@@ -116,8 +116,6 @@ capacities_df.insert(10, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(11, "B2 Fire Case Capacity", b2_fire_capacity, True)
 capacities_df.insert(12, "Ratio", capacities_df['B2 Unfactored Load'] / capacities_df['B2 Fire Case Capacity'], True)
 
-
-
 st.write(capacities_df)
 
 
