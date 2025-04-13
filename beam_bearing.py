@@ -45,11 +45,11 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        if FRR == "0 hour":
+        if FRR == "0":
             char_depth = 0
-        elif FRR == "1 hour":
+        elif FRR == "1":
             char_depth = 1.8
-        elif FRR == "2 hour":
+        elif FRR == "2":
             char_depth = 3.2
         )
 
