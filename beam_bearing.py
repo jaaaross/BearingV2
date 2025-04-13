@@ -33,6 +33,13 @@ st.write(node_df)
     
 
 def run_check(node_df):
+    if FRR == "0 hour":
+        char_depth = 0
+    elif FRR == "1 hour":
+        char_depth = 1.8
+    elif FRR == "2 hour":
+        char_depth = 3.2
+
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
         node_df['B1 Depth'],
@@ -47,7 +54,7 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        3.2
+        char_depth
         )
 
     b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
@@ -62,7 +69,7 @@ st.write(df_capacity)
 
 output_df = node_df.copy()
 
-output_df.drop(columns=['B1 DL', 'B1 LL', 'B2 DL', 'B2 LL'], axis=1, inplace=True)
+output_df.drop(columns=['B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
 
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
@@ -81,12 +88,7 @@ st.write(output_df)
 
 
 
-if FRR == "0 hour":
-    char_depth = 0
-elif FRR == "1 hour":
-    char_depth = 1.8
-elif FRR == "2 hour":
-    char_depth = 3.2
+
 
 
 BearingNode = bbm.BearingNode(beam1_width,
