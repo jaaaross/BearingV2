@@ -51,11 +51,11 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        if node_df['FRR'] = 0:
+        if node_df['FRR'] == 0:
             return 0
-        elif node_df['FRR'] = 1:
+        elif node_df['FRR'] == 1:
             return 1.8
-        elif node_df['FRR'] = 2:
+        elif node_df['FRR'] == 2:
             return 3.2
         )
 
