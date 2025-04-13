@@ -33,12 +33,12 @@ st.write(node_df)
     
 
 def run_check(node_df):
-    if FRR == "0 hour":
-        char_depth = 0
-    elif FRR == "1 hour":
-        char_depth = 1.8
-    elif FRR == "2 hour":
-        char_depth = 3.2
+#    if FRR == "0 hour":
+#        char_depth = 0
+#    elif FRR == "1 hour":
+#        char_depth = 1.8
+#    elif FRR == "2 hour":
+#        char_depth = 3.2
 
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
@@ -54,7 +54,7 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        char_depth
+        3.2
         )
 
     b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
@@ -67,21 +67,27 @@ st.write(df_capacity)
 
 
 
-output_df = node_df.copy()
+capacities_df = node_df.copy()
 
-output_df.drop(columns=['B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
+capacities_df.drop(columns=['B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
 
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
+b1_fire_capacity = []
+b2_fire_capacity = []
 
 for row in df_capacity:
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
+    b1_fire_capacity.append(row[3][0])
+    b2_fire_capacity.append(row[4][0])
 
-output_df.insert(1, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
-output_df.insert(1, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
+capacities_df.insert(1, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
+capacities_df.insert(1, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
+capacities_df.insert(1, "B1 Fire Case Capacity", b2_nonfire_capacity, True)
+capacities_df.insert(1, "B2 Fire Case Capacity", b2_nonfire_capacity, True)
 
-st.write(output_df)
+st.write(capacities_df)
 
 
 
