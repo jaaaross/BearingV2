@@ -84,7 +84,7 @@ b1_fire_ratio = []
 b2_nonfire_ratio = []
 b2_fire_ratio = []
 
-for index, row in df_capacity:
+for index, row in df_capacity.iterrows():
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
