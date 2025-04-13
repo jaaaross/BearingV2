@@ -60,9 +60,11 @@ st.write(df_capacity)
 
 
 
-#output_df = node_df.copy()
+output_df = node_df.copy()
 
-#output_df.drop(output_df.columns[[3,4,8,9]], axis=1, inplace=True)
+output_df.drop(output_df.columns[[1,2,3,4,5,6,7,8,9]], axis=1, inplace=True)
+
+st.write(output_df)
 
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
