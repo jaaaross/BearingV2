@@ -86,6 +86,7 @@ b2_fire_ratio = []
 
 for row in df_capacity:
     b1_nonfire_capacity.append(row[0][0])
+    st.write(b1_nonfire_capacity)
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
     b2_fire_capacity.append(row[3][0])
