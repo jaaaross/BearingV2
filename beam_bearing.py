@@ -28,16 +28,9 @@ if uploaded_file is not None:
     st.write("See below for your connection parameters! Everything can be edited here.")  
 
     node_df = st.data_editor(df, num_rows="dynamic")
-    
+
 
 def run_check(node_df):
-#    if FRR == "0 hour":
-#        char_depth = 0
-#    elif FRR == "1 hour":
-#        char_depth = 1.8
-#    elif FRR == "2 hour":
-#        char_depth = 3.2
-
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
         node_df['B1 Depth'],
@@ -52,7 +45,12 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        3.2
+        if FRR == "0 hour":
+            char_depth = 0
+        elif FRR == "1 hour":
+            char_depth = 1.8
+        elif FRR == "2 hour":
+            char_depth = 3.2
         )
 
     b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
@@ -93,11 +91,6 @@ for row in df_capacity:
     b1_unfactored_load.append(row[4][1])
     b2_factored_load.append(row[4][2])
     b2_unfactored_load.append(row[4][3])
-    #b1_nonfire_ratio.append(b1_factored_load[index]/b1_nonfire_capacity[index])
-    #b1_fire_ratio.append(b1_unfactored_load[index]/b1_fire_capacity[index])
-    #b2_nonfire_ratio.append(b2_factored_load[index]/b2_nonfire_capacity[index])
-    #b2_fire_ratio.append(b2_unfactored_load[index]/b2_fire_capacity[index])
-
 
 
 capacities_df.insert(1, "B1 Factored Load", b1_factored_load, True)
