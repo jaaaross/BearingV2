@@ -75,10 +75,12 @@ b1_nonfire_capacity = []
 b2_nonfire_capacity = []
 b1_fire_capacity = []
 b2_fire_capacity = []
-
+b1_factored_load = []
+b1_unfactored_load = []
+b2_factored_load = []
+b2_unfactored_load = []
 
 for row in df_capacity:
-    st.write(row)
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
