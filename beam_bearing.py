@@ -1,4 +1,5 @@
 import streamlit as st
+from dataclasses import dataclass
 import beam_bearing_module as bbm
 
 
@@ -55,7 +56,7 @@ def run_check(node_df):
 
 df_capacity = node_df.apply(run_check, axis=1)
 
-
+st.write(df_capacity)
 
 
 
