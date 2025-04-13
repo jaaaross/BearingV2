@@ -103,7 +103,7 @@ for row in df_capacity:
 capacities_df.insert(1, "B1 Factored Load", b1_factored_load, True)
 capacities_df.insert(2, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
 #capacities_df.insert(3, "B1 Nonfire Case Ratio", b1_nonfire_ratio, True)
-capacities_df.insert(3, "Ratio", capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity'], , True)
+capacities_df.insert(3, "Ratio", capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity'], True)
 #capacities_df['Ratio'] = capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity']
 
 capacities_df.insert(4, "B1 Unfactored Load", b1_unfactored_load, True)
