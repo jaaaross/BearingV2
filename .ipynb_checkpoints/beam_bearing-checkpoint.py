@@ -28,8 +28,6 @@ if uploaded_file is not None:
     st.write("See below for your connection parameters! Everything can be edited here.")  
 
     node_df = st.data_editor(df, num_rows="dynamic")
-
-st.write(node_df)
     
 
 def run_check(node_df):
@@ -69,7 +67,9 @@ st.write(df_capacity)
 
 capacities_df = node_df.copy()
 
-capacities_df.drop(columns=['B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
+        
+
+capacities_df.drop(columns=['B1 Width', 'B1 Depth', 'B1 Route Length', 'B2 Width', 'B2 Depth', 'B2 Route Length', 'C Width', 'C Depth', 'B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
 
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
@@ -84,8 +84,8 @@ for row in df_capacity:
 
 capacities_df.insert(1, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
 capacities_df.insert(1, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
-capacities_df.insert(1, "B1 Fire Case Capacity", b2_nonfire_capacity, True)
-capacities_df.insert(1, "B2 Fire Case Capacity", b2_nonfire_capacity, True)
+capacities_df.insert(1, "B1 Fire Case Capacity", b1_fire_capacity, True)
+capacities_df.insert(1, "B2 Fire Case Capacity", b2_fire_capacity, True)
 
 st.write(capacities_df)
 
