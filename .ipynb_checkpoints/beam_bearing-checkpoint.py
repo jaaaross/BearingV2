@@ -51,12 +51,13 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        if node_df['FRR'] == 0:
-            return 0
-        elif node_df['FRR'] == 1:
-            return 1.8
-        elif node_df['FRR'] == 2:
-            return 3.2
+        3.2
+        #if node_df['FRR'] == 0:
+        #    return 0
+        #elif node_df['FRR'] == 1:
+        #    return 1.8
+        #elif node_df['FRR'] == 2:
+        #    return 3.2
         )
 
     b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
@@ -118,7 +119,21 @@ capacities_df.insert(12, "Ratio4", capacities_df['B2 Unfactored Load'] / capacit
 st.write(capacities_df)
 
 
+output_df = node_df.copy()
 
+event = st.dataframe(
+    output_ft,
+    on_select='rerun',
+    selection_mode='single-row'
+)
+
+if len(event.selection['rows']):
+    selected_row = event.selection['rows'][0]
+    country = df.iloc[selected_row]['B1 DL']
+    capital = df.iloc[selected_row]['B2 DL']
+
+    st.session_state['country_data'] = {'country': country, 'capital': capital}
+    st.page_link('pages/detail.py', label=f'Goto {country} Page', icon='🗺️')
 
 
 '''
