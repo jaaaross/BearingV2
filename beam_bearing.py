@@ -84,7 +84,7 @@ b1_fire_ratio = []
 b2_nonfire_ratio = []
 b2_fire_ratio = []
 
-for index, row in df_capacity.iterrows():
+for row in df_capacity:
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
@@ -93,26 +93,30 @@ for index, row in df_capacity.iterrows():
     b1_unfactored_load.append(row[4][1])
     b2_factored_load.append(row[4][2])
     b2_unfactored_load.append(row[4][3])
-    b1_nonfire_ratio.append(b1_factored_load[index]/b1_nonfire_capacity[index])
-    b1_fire_ratio.append(b1_unfactored_load[index]/b1_fire_capacity[index])
-    b2_nonfire_ratio.append(b2_factored_load[index]/b2_nonfire_capacity[index])
-    b2_fire_ratio.append(b2_unfactored_load[index]/b2_fire_capacity[index])
+    #b1_nonfire_ratio.append(b1_factored_load[index]/b1_nonfire_capacity[index])
+    #b1_fire_ratio.append(b1_unfactored_load[index]/b1_fire_capacity[index])
+    #b2_nonfire_ratio.append(b2_factored_load[index]/b2_nonfire_capacity[index])
+    #b2_fire_ratio.append(b2_unfactored_load[index]/b2_fire_capacity[index])
 
 
 
 capacities_df.insert(1, "B1 Factored Load", b1_factored_load, True)
 capacities_df.insert(2, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
-capacities_df.insert(3, "B1 Nonfire Case Ratio", b1_nonfire_ratio, True)
+#capacities_df.insert(3, "B1 Nonfire Case Ratio", b1_nonfire_ratio, True)
+capacities_df['Ratio'] = capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity']
+
 capacities_df.insert(4, "B1 Unfactored Load", b1_unfactored_load, True)
 capacities_df.insert(5, "B1 Fire Case Capacity", b1_fire_capacity, True)
-capacities_df.insert(6, "B1 Fire Case Ratio", b1_fire_ratio, True)
+#capacities_df.insert(6, "B1 Fire Case Ratio", b1_fire_ratio, True)
 
 capacities_df.insert(7, "B2 Factored Load", b2_factored_load, True)
 capacities_df.insert(8, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
-capacities_df.insert(9, "B2 Nonfire Case Ratio", b2_nonfire_ratio, True)
+#capacities_df.insert(9, "B2 Nonfire Case Ratio", b2_nonfire_ratio, True)
+
 capacities_df.insert(10, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(11, "B2 Fire Case Capacity", b2_fire_capacity, True)
-capacities_df.insert(12, "B2 Fire Case Ratio", b2_fire_ratio, True)
+#capacities_df.insert(12, "B2 Fire Case Ratio", b2_fire_ratio, True)
+
 
 st.write(capacities_df)
 
