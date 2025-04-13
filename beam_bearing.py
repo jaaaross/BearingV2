@@ -76,10 +76,9 @@ b2_nonfire_capacity = []
 b1_fire_capacity = []
 b2_fire_capacity = []
 
-st.write(df_capacity(row[0][0]))
 
-'''
 for row in df_capacity:
+    st.write(row)
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
@@ -102,7 +101,7 @@ capacities_df.insert(1, "B2 Fire Case Capacity", b2_fire_capacity, True)
 st.write(capacities_df)
 
 
-'''
+
 
 
 '''
