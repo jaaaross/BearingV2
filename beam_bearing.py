@@ -95,10 +95,12 @@ capacities_df.insert(2, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
 capacities_df.insert(3, "B1 Unfactored Load", b1_unfactored_load, True)
 capacities_df.insert(4, "B1 Fire Case Capacity", b1_fire_capacity, True)
 
+'''
 capacities_df.insert(5, "B2 Factored Load", b2_factored_load, True)
 capacities_df.insert(6, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
 capacities_df.insert(7, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(8, "B2 Fire Case Capacity", b2_fire_capacity, True)
+'''
 
 st.write(capacities_df)
 
