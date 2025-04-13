@@ -94,7 +94,7 @@ for row in df_capacity:
     b1_unfactored_load.append(row[4][1])
     b2_factored_load.append(row[4][2])
     b2_unfactored_load.append(row[4][3])
-    b1_nonfire_ratio.append(b1_factored_load/b1_nonfire_capacity)
+    b1_nonfire_ratio.append(b1_factored_load[0]/b1_nonfire_capacity[0])
     b1_fire_ratio.append(b1_unfactored_load/b1_fire_capacity)
     b2_nonfire_ratio.append(b2_factored_load/b2_nonfire_capacity)
     b2_fire_ratio.append(b2_unfactored_load/b2_fire_capacity)
