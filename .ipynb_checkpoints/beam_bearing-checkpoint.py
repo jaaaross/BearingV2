@@ -27,8 +27,8 @@ if uploaded_file is not None:
     st.write("See below for your connection parameters! Everything can be edited here.")  
 
     node_df = st.data_editor(df, num_rows="dynamic")
-    node_df.write
-    df_capacity = node_df.apply(run_check, axis=1)
+
+st.write(node_df)
     
 
 def run_check(node_df):
@@ -53,7 +53,7 @@ def run_check(node_df):
 
     return b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads 
 
-
+df_capacity = node_df.apply(run_check, axis=1)
 
 
 
@@ -62,7 +62,7 @@ def run_check(node_df):
 #output_df = node_df.copy()
 
 #output_df.drop(output_df.columns[[3,4,8,9]], axis=1, inplace=True)
-'''
+
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
 
@@ -248,7 +248,7 @@ with col2:
 
 
 
-'''
+
 
 
 
