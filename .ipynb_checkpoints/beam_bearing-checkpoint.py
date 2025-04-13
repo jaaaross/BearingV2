@@ -84,7 +84,7 @@ b1_fire_ratio = []
 b2_nonfire_ratio = []
 b2_fire_ratio = []
 
-for count, row in df_capacity:
+for index, row in df_capacity:
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
@@ -93,10 +93,10 @@ for count, row in df_capacity:
     b1_unfactored_load.append(row[4][1])
     b2_factored_load.append(row[4][2])
     b2_unfactored_load.append(row[4][3])
-    b1_nonfire_ratio.append(b1_factored_load[count]/b1_nonfire_capacity[count])
-    b1_fire_ratio.append(b1_unfactored_load[count]/b1_fire_capacity[count])
-    b2_nonfire_ratio.append(b2_factored_load[count]/b2_nonfire_capacity[count])
-    b2_fire_ratio.append(b2_unfactored_load[count]/b2_fire_capacity[count])
+    b1_nonfire_ratio.append(b1_factored_load[index]/b1_nonfire_capacity[index])
+    b1_fire_ratio.append(b1_unfactored_load[index]/b1_fire_capacity[index])
+    b2_nonfire_ratio.append(b2_factored_load[index]/b2_nonfire_capacity[index])
+    b2_fire_ratio.append(b2_unfactored_load[index]/b2_fire_capacity[index])
 
 
 
