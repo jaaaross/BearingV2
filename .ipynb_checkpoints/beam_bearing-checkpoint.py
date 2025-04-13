@@ -79,12 +79,12 @@ b2_fire_capacity = []
 for row in df_capacity:
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
-    b1_fire_capacity.append(row[3][0])
-    b2_fire_capacity.append(row[4][0])
-    b1_factored_load.append(row[5][0])
-    b1_unfactored_load.append(row[5][1])
-    b2_factored_load.append(row[5][2])
-    b2_unfactored_load.append(row[5][3])
+    b1_fire_capacity.append(row[2][0])
+    b2_fire_capacity.append(row[3][0])
+    b1_factored_load.append(row[4][0])
+    b1_unfactored_load.append(row[4][1])
+    b2_factored_load.append(row[4][2])
+    b2_unfactored_load.append(row[4][3])
 
 capacities_df.insert(1, "B1 Factored Load", b1_factored_load, True)
 capacities_df.insert(1, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
