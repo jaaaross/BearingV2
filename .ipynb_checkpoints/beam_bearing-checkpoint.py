@@ -132,8 +132,7 @@ if len(event.selection['rows']):
     country = df.iloc[selected_row]['B1 DL']
     capital = df.iloc[selected_row]['B2 DL']
 
-    st.session_state['country_data'] = {'country': country, 'capital': capital}
-    st.page_link('pages/detail.py', label=f'Goto {country} Page', icon='🗺️')
+    st.write(country + capital)
 
 
 '''
