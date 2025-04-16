@@ -29,14 +29,16 @@ if uploaded_file is not None:
 
     node_df = st.data_editor(df, num_rows="dynamic")
 
-#if FRR == "0":
-#    char_depth = 0
-#elif FRR == "1":
-#    char_depth = 1.8
-#elif FRR == "2":
-#    char_depth = 3.2
+
 
 def run_check(node_df):
+if node_df['FRR'] == "0":
+    char_depth = 0
+elif node_df['FRR'] == "1":
+    char_depth = 1.8
+elif node_df['FRR'] == "2":
+    char_depth = 3.2
+    
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
         node_df['B1 Depth'],
@@ -51,7 +53,7 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        3.2
+        char_depth
         #if node_df['FRR'] == 0:
         #    return 0
         #elif node_df['FRR'] == 1:
