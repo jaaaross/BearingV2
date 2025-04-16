@@ -121,6 +121,8 @@ st.write(capacities_df)
 
 output_df = node_df.copy()
 
+st.write('Click the checkbox in the far left column.')
+
 event = st.dataframe(
     output_df,
     on_select='rerun',
@@ -129,8 +131,8 @@ event = st.dataframe(
 
 if len(event.selection['rows']):
     selected_row = event.selection['rows'][0]
-    country = df.iloc[selected_row]['B1 DL']
-    capital = df.iloc[selected_row]['B2 DL']
+    country = output_df.iloc[selected_row]['B1 DL']
+    capital = output_df.iloc[selected_row]['B2 DL']
 
     st.write(country + capital)
 
