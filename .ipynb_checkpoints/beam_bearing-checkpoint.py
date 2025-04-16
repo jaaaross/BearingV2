@@ -2,6 +2,9 @@ import streamlit as st
 from dataclasses import dataclass
 import beam_bearing_module as bbm
 
+from matplotlib.figure import Figure
+from matplotlib.patches import Rectangle
+from matplotlib.collections import PatchCollection
 
 # For Later Versions - a 20mm subtraction of bearing width to account for the chamfer that is generally done around corners at connection to simplify CNC
 # - the ignoring of remaining column material around the connection when the remaining material is not thick enough to rely on it being there after transport
@@ -30,15 +33,22 @@ if uploaded_file is not None:
     node_df = st.data_editor(df, num_rows="dynamic")
 
 
+beam1_width = node_df['B1 Width']
+beam2_width = node_df['B2 Width']
+beam1_route_length = node_df['B1 Route Length']
+beam2_route_length = node_df['B2 Route Length']
+column_width = node_df['C Width']
+column_depth = node_df['C Depth']
+
 
 def run_check(node_df):
-    st.write(node_df['FRR'])
-    if node_df['FRR'] == "0":
-        char_depth = 0
-    elif node_df['FRR'] == "1":
-        char_depth = 1.8
-    elif node_df['FRR'] == "2":
-        char_depth = 3.2
+    #st.write(node_df['FRR'])
+    #if node_df['FRR'] == "0":
+    #    char_depth = 0
+    #elif node_df['FRR'] == "1":
+    #    char_depth = 1.8
+    #elif node_df['FRR'] == "2":
+    #    char_depth = 3.2
     
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
@@ -54,7 +64,7 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        char_depth
+        3.2
         #if node_df['FRR'] == 0:
         #    return 0
         #elif node_df['FRR'] == 1:
@@ -70,7 +80,6 @@ def run_check(node_df):
 df_capacity = node_df.apply(run_check, axis=1)
 
 st.write(df_capacity)
-
 
 
 capacities_df = node_df.copy()
@@ -139,34 +148,50 @@ if len(event.selection['rows']):
 
     st.write(country + capital)
 
+    col1, col2 = st.columns(2)
+    
+    column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
+    beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
+    beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
+    column_outline2 = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black', fill=False, ls='--')
+    
+    if column_width >= beam1_width:
+        b1_nf_rect_x_pos = column_width/2-beam1_width/2
+    else:
+        b1_nf_rect_x_pos = 0
+    
+    if column_width >= beam2_width:
+        b2_nf_rect_x_pos = column_width/2-beam2_width/2
+    else:
+        b2_nf_rect_x_pos = 0
+    
+    b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire[2]],b1_nonfire[1],b1_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
+    b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0],b2_nonfire[1],b2_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
+    
+    fig = Figure()
+    nf = fig.gca()
+    
+    nf.add_patch(column_outline)
+    nf.add_patch(beam1_outline)
+    nf.add_patch(beam2_outline)
+    nf.add_patch(b1_nf_bearing_area)
+    nf.add_patch(b2_nf_bearing_area)
+    nf.add_patch(column_outline2)
+    
+    nf.set_xlim(-column_width, column_width * 2)
+    nf.set_ylim(-column_depth, column_depth * 2)
+    nf.set_aspect('equal')
+    
+    nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
+    nf.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_nonfire[1],3)) + " inch wide x " + str(round(b1_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
+    nf.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_nonfire[1],3)) + " inch wide x " + str(round(b2_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
+
+
 
 '''
 
 
-
-BearingNode = bbm.BearingNode(beam1_width,
-    beam1_depth,
-    beam1_dead_load,
-    beam1_live_load,
-    beam1_route_length,
-    beam2_width,
-    beam2_depth,
-    beam2_dead_load,
-    beam2_live_load,
-    beam2_route_length,
-    column_width,
-    column_depth,
-    F_c_perp,
-    char_depth
-    )
-
-
-b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
-
-ratios = []
-
-ratios.append(round(loads[0]/b1_nonfire[0],3))
-
+not sure what this is doing but might be improtant!!!
 if b1_fire[0] == 0:
     ratios.append(100000)
 else:
@@ -184,47 +209,7 @@ else:
 # loads = b1_f, b1_u, b2_f, b2_u
 
 
-from matplotlib.figure import Figure
-from matplotlib.patches import Rectangle
-from matplotlib.collections import PatchCollection
-
-col1, col2 = st.columns(2)
-
-column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
-beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
-beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
-column_outline2 = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black', fill=False, ls='--')
-
-if column_width >= beam1_width:
-    b1_nf_rect_x_pos = column_width/2-beam1_width/2
-else:
-    b1_nf_rect_x_pos = 0
-
-if column_width >= beam2_width:
-    b2_nf_rect_x_pos = column_width/2-beam2_width/2
-else:
-    b2_nf_rect_x_pos = 0
-
-b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire[2]],b1_nonfire[1],b1_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
-b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0],b2_nonfire[1],b2_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
-
-fig = Figure()
-nf = fig.gca()
-
-nf.add_patch(column_outline)
-nf.add_patch(beam1_outline)
-nf.add_patch(beam2_outline)
-nf.add_patch(b1_nf_bearing_area)
-nf.add_patch(b2_nf_bearing_area)
-nf.add_patch(column_outline2)
-
-nf.set_xlim(-column_width, column_width * 2)
-nf.set_ylim(-column_depth, column_depth * 2)
-nf.set_aspect('equal')
-
-nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
-nf.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_nonfire[1],3)) + " inch wide x " + str(round(b1_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
-nf.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_nonfire[1],3)) + " inch wide x " + str(round(b2_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
+--------
 
 with col1:
     if beam1_route_length + beam2_route_length > column_depth:
