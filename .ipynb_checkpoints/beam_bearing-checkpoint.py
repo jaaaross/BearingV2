@@ -32,12 +32,12 @@ if uploaded_file is not None:
 
 
 def run_check(node_df):
-if node_df['FRR'] == "0":
-    char_depth = 0
-elif node_df['FRR'] == "1":
-    char_depth = 1.8
-elif node_df['FRR'] == "2":
-    char_depth = 3.2
+    if node_df['FRR'] == "0":
+        char_depth = 0
+    elif node_df['FRR'] == "1":
+        char_depth = 1.8
+    elif node_df['FRR'] == "2":
+        char_depth = 3.2
     
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
