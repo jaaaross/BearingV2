@@ -33,21 +33,6 @@ if uploaded_file is not None:
     node_df = st.data_editor(df, num_rows="dynamic")
 
 
-beam1_width = node_df['B1 Width']
-beam2_width = node_df['B2 Width']
-beam1_route_length = node_df['B1 Route Length']
-beam2_route_length = node_df['B2 Route Length']
-column_width = node_df['C Width']
-column_depth = node_df['C Depth']
-
-
-st.write(beam1_width)
-st.write(beam2_width)
-st.write(beam1_route_length)
-st.write(beam2_route_length)
-st.write(column_width)
-st.write(column_depth)
-
 def run_check(node_df):
     #st.write(node_df['FRR'])
     #if node_df['FRR'] == "0":
@@ -154,6 +139,14 @@ if len(event.selection['rows']):
     capital = output_df.iloc[selected_row]['B2 DL']
 
     st.write(country + capital)
+
+
+    beam1_width = output_df.iloc[selected_row]['B1 Width']
+    beam2_width = output_df.iloc[selected_row]['B2 Width']
+    beam1_route_length = output_df.iloc[selected_row]['B1 Route Length']
+    beam2_route_length = output_df.iloc[selected_row]['B2 Route Length']
+    column_width = output_df.iloc[selected_row]['C Width']
+    column_depth = output_df.iloc[selected_row]['C Depth']
 
     col1, col2 = st.columns(2)
     
