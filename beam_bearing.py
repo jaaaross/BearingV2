@@ -41,12 +41,12 @@ column_width = node_df['C Width']
 column_depth = node_df['C Depth']
 
 
-print(beam1_width)
-print(beam2_width)
-print(beam1_route_length)
-print(beam2_route_length)
-print(column_width)
-print(column_depth)
+st.write(beam1_width)
+st.write(beam2_width)
+st.write(beam1_route_length)
+st.write(beam2_route_length)
+st.write(column_width)
+st.write(column_depth)
 
 def run_check(node_df):
     #st.write(node_df['FRR'])
