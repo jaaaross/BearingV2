@@ -32,6 +32,7 @@ if uploaded_file is not None:
 
 
 def run_check(node_df):
+    st.write(node_df['FRR'])
     if node_df['FRR'] == "0":
         char_depth = 0
     elif node_df['FRR'] == "1":
