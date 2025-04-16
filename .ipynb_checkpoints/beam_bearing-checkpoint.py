@@ -122,7 +122,7 @@ st.write(capacities_df)
 output_df = node_df.copy()
 
 event = st.dataframe(
-    output_ft,
+    output_df,
     on_select='rerun',
     selection_mode='single-row'
 )
