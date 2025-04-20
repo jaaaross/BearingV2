@@ -216,6 +216,10 @@ if len(event.selection['rows']):
     nf.set_ylim(-column_depth, column_depth * 2)
     nf.set_aspect('equal')
 
+    nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
+    nf.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_nonfire[1],3)) + " inch wide x " + str(round(b1_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
+    nf.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_nonfire[1],3)) + " inch wide x " + str(round(b2_nonfire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
+
     with col1:
         fig
 
