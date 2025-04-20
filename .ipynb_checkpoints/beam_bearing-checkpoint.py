@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 st.title("Timber Beam Bearing Calculator V2")
 
 ''' The idea here is to speed up the overall process of designing and detailing buildings with many different timber bearing connections. This will
-allow the engineer to upload a set of parameters and quickly calculate viable connection designs then print a schedule for their drawing. Please upload
+allow the engineer to upload a set of parameters and quickly calculate viable connection designs. Please upload
 a CSV file in the proper format. See below for the proper CSV format:
 
 Label,B1 Width,B1 Depth,B1 Route Length,B1 DL,B1 LL,B2 Width,B2 Depth,B2 Route Length,B2 DL,B2 LL,C Width,C Depth,F_c_perp,Char Depth
@@ -23,7 +23,7 @@ BC2,8,20,5,8000,6000,9,18,4,8000,6000,12,12,400,1.8
 
 BC3,8,20,4.5,8000,6000,10,18,5,8000,6000,12,12,400,0.9
 
-[I realize its not pretty or elegant but I wanted to get it built at 80% and in because I believe its the end of the course!]'''
+[I realize its not pretty or elegant but I wanted to get it built at 90% and in because I believe its the end of the course!]'''
 
 
 import streamlit as st
