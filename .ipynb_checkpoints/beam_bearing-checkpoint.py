@@ -216,9 +216,17 @@ if len(event.selection['rows']):
     
     nf.set_xlim(-column_width, column_width * 2)
     nf.set_ylim(-column_depth, column_depth * 2)
-    #nf.set_aspect('equal')
+    nf.set_aspect('equal')
 
 
+
+
+
+
+
+
+
+    
     '''
     
     nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
