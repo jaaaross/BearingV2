@@ -65,7 +65,7 @@ capacities_df = node_df.copy()
 calc_df = node_df.copy()
         
 
-capacities_df.drop(columns=['B1 Width', 'B1 Depth', 'B1 Route Length', 'B2 Width', 'B2 Depth', 'B2 Route Length', 'C Width', 'C Depth', 'B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
+capacities_df.drop(columns=['B1 Width', 'B1 Depth', 'B1 Route Length', 'B2 Width', 'B2 Depth', 'B2 Route Length', 'C Width', 'C Depth', 'B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'Char Depth'], axis=1, inplace=True)
 
 b1_nonfire_capacity = []
 b2_nonfire_capacity = []
@@ -252,7 +252,7 @@ if len(event.selection['rows']):
     f.set_ylim(-column_depth, column_depth * 2)
     f.set_aspect('equal')
     
-    f.text(-column_width*0.6,column_depth*1.9, (FRR + ' Fire Case'), fontsize = 5, ha = 'center')
+    f.text(-column_width*0.6,column_depth*1.9, ('Fire Case'), fontsize = 5, ha = 'center')
     f.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_fire_width,3)) + " inch wide x " + str(round(b1_fire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
     f.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_fire_width,3)) + " inch wide x " + str(round(b2_fire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
 
