@@ -217,6 +217,9 @@ if len(event.selection['rows']):
     nf.set_xlim(-column_width, column_width * 2)
     nf.set_ylim(-column_depth, column_depth * 2)
     nf.set_aspect('equal')
+
+
+    '''
     
     nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
     nf.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_nonfire_width,3)) + " inch wide x " + str(round(b1_nonfire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
@@ -224,7 +227,7 @@ if len(event.selection['rows']):
 
 
 
-'''
+
 
 
 not sure what this is doing but might be improtant!!!
