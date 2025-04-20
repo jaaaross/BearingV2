@@ -231,8 +231,8 @@ if len(event.selection['rows']):
     beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
     column_outline2 = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black', fill=False, ls='--')
     
-    b1_f_bearing_area = Rectangle([b1_f_rect_x_pos, column_depth-beam1_route_length],b1_fire_wdith,b1_fire_length, angle=0, facecolor='magenta', edgecolor='black')
-    b2_f_bearing_area = Rectangle([b2_f_rect_x_pos, char_depth],b2_fire_wdith,b2_fire_length, angle=0, facecolor='magenta', edgecolor='black')
+    b1_f_bearing_area = Rectangle([b1_f_rect_x_pos, column_depth-beam1_route_length],b1_fire_width,b1_fire_length, angle=0, facecolor='magenta', edgecolor='black')
+    b2_f_bearing_area = Rectangle([b2_f_rect_x_pos, char_depth],b2_fire_width,b2_fire_length, angle=0, facecolor='magenta', edgecolor='black')
     
     column_char_outline = Rectangle([char_depth,char_depth], column_width - char_depth*2, column_depth-char_depth*2, angle=0, edgecolor='red', fill = False)
     
