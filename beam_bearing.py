@@ -199,13 +199,14 @@ if len(event.selection['rows']):
     else:
         b2_nf_rect_x_pos = 0
 
- 
+    fig = Figure()
+    nf = fig.gca()
     
     b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire_length], b1_nonfire_width, b1_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0], b2_nonfire_width, b2_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     
-    fig = Figure()
-    nf = fig.gca()
+    #fig = Figure()
+    #nf = fig.gca()
     
     nf.add_patch(column_outline)
     nf.add_patch(beam1_outline)
