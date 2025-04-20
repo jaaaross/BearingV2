@@ -158,6 +158,7 @@ if len(event.selection['rows']):
     beam2_route_length = node_df.iloc[selected_row]['B2 Route Length']
     column_width = node_df.iloc[selected_row]['C Width']
     column_depth = node_df.iloc[selected_row]['C Depth']
+    char_depth = node_df.iloc[selected_row]['Char Depth']
     
     b1_nonfire_width = calc_df.iloc[selected_row]['B1 Nonfire Bearing Width']
     b1_nonfire_length = calc_df.iloc[selected_row]['B1 Nonfire Bearing Length']
