@@ -216,8 +216,7 @@ if len(event.selection['rows']):
     nf.set_ylim(-column_depth, column_depth * 2)
     nf.set_aspect('equal')
 
-    nf.show()
-
+    fig
 
 
 
