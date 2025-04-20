@@ -157,9 +157,6 @@ calc_df.insert('B2 Fire Bearing Length', b2_fire_bearing_length, True)
 st.write(capacities_df)
 
 
-
-
-
 output_df = node_df.copy()
 
 event = st.dataframe(
