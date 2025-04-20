@@ -179,10 +179,6 @@ if len(event.selection['rows']):
     b2_nonfire_width = calc_df.iloc[selected_row]['B2 Nonfire Bearing Width']
     b2_nonfire_length = calc_df.iloc[selected_row]['B2 Nonfire Bearing Length']
     
-    st.write(b1_nonfire_width)
-    st.write(b1_nonfire_length)
-    st.write(b2_nonfire_width)
-    st.write(b2_nonfire_length)
     #col1, col2 = st.columns(2)
 
     
@@ -203,10 +199,10 @@ if len(event.selection['rows']):
     else:
         b2_nf_rect_x_pos = 0
 
-    
+    '''
     b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire_length], b1_nonfire_width, b1_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0], b2_nonfire_width, b2_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
-    
+    '''
     fig = Figure()
     nf = fig.gca()
     
