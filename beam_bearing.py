@@ -144,15 +144,15 @@ capacities_df.insert(10, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(11, "B2 Fire Case Capacity", b2_fire_capacity, True)
 capacities_df.insert(12, "Ratio4", capacities_df['B2 Unfactored Load'] / capacities_df['B2 Fire Case Capacity'], True)
 
-calc_df.insert('B1 Nonfire Bearing Width', b1_nonfire_bearing_width, True)
-calc_df.insert('B1 Nonfire Bearing Length', b1_nonfire_bearing_length, True)
-calc_df.insert('B1 Fire Bearing Width', b1_fire_bearing_width, True)
-calc_df.insert('B1 Fire Bearing Length', b1_fire_bearing_length, True)
+calc_df.insert(1, 'B1 Nonfire Bearing Width', b1_nonfire_bearing_width, True)
+calc_df.insert(2, 'B1 Nonfire Bearing Length', b1_nonfire_bearing_length, True)
+calc_df.insert(3, 'B1 Fire Bearing Width', b1_fire_bearing_width, True)
+calc_df.insert(4, 'B1 Fire Bearing Length', b1_fire_bearing_length, True)
 
-calc_df.insert('B2 Nonfire Bearing Width', b2_nonfire_bearing_width, True)
-calc_df.insert('B2 Nonfire Bearing Length', b2_nonfire_bearing_length, True)
-calc_df.insert('B2 Fire Bearing Width', b2_fire_bearing_width, True)
-calc_df.insert('B2 Fire Bearing Length', b2_fire_bearing_length, True)
+calc_df.insert(5, 'B2 Nonfire Bearing Width', b2_nonfire_bearing_width, True)
+calc_df.insert(6, 'B2 Nonfire Bearing Length', b2_nonfire_bearing_length, True)
+calc_df.insert(7, 'B2 Fire Bearing Width', b2_fire_bearing_width, True)
+calc_df.insert(8, 'B2 Fire Bearing Length', b2_fire_bearing_length, True)
 
 st.write(capacities_df)
 
