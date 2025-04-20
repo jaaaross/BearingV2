@@ -262,7 +262,7 @@ if len(event.selection['rows']):
     with col2:
         fig
 
-
+#test
 
 
     
