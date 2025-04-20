@@ -172,13 +172,6 @@ if len(event.selection['rows']):
     beam2_route_length = node_df.iloc[selected_row]['B2 Route Length']
     column_width = node_df.iloc[selected_row]['C Width']
     column_depth = node_df.iloc[selected_row]['C Depth']
-
-    st.write(beam1_width)
-    st.write(beam2_width)
-    st.write(beam1_route_length)
-    st.write(beam2_route_length)
-    st.write(column_width)
-    st.write(column_depth)
     
     b1_nonfire_width = calc_df.iloc[selected_row]['B1 Nonfire Bearing Width']
     b1_nonfire_length = calc_df.iloc[selected_row]['B1 Nonfire Bearing Length']
@@ -213,15 +206,15 @@ if len(event.selection['rows']):
     nf = fig.gca()
     
     nf.add_patch(column_outline)
-    nf.add_patch(beam1_outline)
-    nf.add_patch(beam2_outline)
-    nf.add_patch(b1_nf_bearing_area)
-    nf.add_patch(b2_nf_bearing_area)
-    nf.add_patch(column_outline2)
+    #nf.add_patch(beam1_outline)
+    #nf.add_patch(beam2_outline)
+    #nf.add_patch(b1_nf_bearing_area)
+    #nf.add_patch(b2_nf_bearing_area)
+    #nf.add_patch(column_outline2)
     
-    nf.set_xlim(-column_width, column_width * 2)
-    nf.set_ylim(-column_depth, column_depth * 2)
-    nf.set_aspect('equal')
+    #nf.set_xlim(-column_width, column_width * 2)
+    #nf.set_ylim(-column_depth, column_depth * 2)
+    #nf.set_aspect('equal')
 
 
 
