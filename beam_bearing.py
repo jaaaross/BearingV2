@@ -199,14 +199,12 @@ if len(event.selection['rows']):
     else:
         b2_nf_rect_x_pos = 0
 
-    fig = Figure()
-    nf = fig.gca()
     
     b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire_length], b1_nonfire_width, b1_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0], b2_nonfire_width, b2_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     
-    #fig = Figure()
-    #nf = fig.gca()
+    fig = Figure()
+    nf = fig.gca()
     
     nf.add_patch(column_outline)
     nf.add_patch(beam1_outline)
@@ -228,116 +226,7 @@ if len(event.selection['rows']):
 
 
     
-    '''
-    
-    nf.text(-column_width*0.6,column_depth*1.9, ('Non-fire Case'), fontsize = 5, ha = 'center')
-    nf.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_nonfire_width,3)) + " inch wide x " + str(round(b1_nonfire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
-    nf.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_nonfire_width,3)) + " inch wide x " + str(round(b2_nonfire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
-
-
-
-
-
-
-not sure what this is doing but might be improtant!!!
-if b1_fire[0] == 0:
-    ratios.append(100000)
-else:
-    ratios.append(round(loads[1]/b1_fire[0],3))
-    
-ratios.append(round(loads[2]/b2_nonfire[0],3))
-
-if b2_fire[0] == 0:
-    ratios.append(100000)
-else:
-    ratios.append(round(loads[3]/b2_fire[0],3))
-
-# NONFIRE CASE
-# bx_nonfire = capacity, bearing width, routing length
-# loads = b1_f, b1_u, b2_f, b2_u
-
-
---------
-
-with col1:
-    if beam1_route_length + beam2_route_length > column_depth:
-        st.write('Your beam routing is overlapping. Please reduce one side.')
-
-    if ratios[0] > 1:
-        st.write("Non-fire capacity is " + str(b1_nonfire[0]) + " lbs. Demand is " + str(loads[0]) + " lbs. Ratio = " + str(ratios[0]) + ". FAIL!")
-    else:
-        st.write("Non-fire capacity is " + str(b1_nonfire[0]) + " lbs. Demand is " + str(loads[0]) + " lbs. Ratio = " + str(ratios[0]) + ". PASS!")
-    if ratios[2] > 1:
-        st.write("Non-fire capacity is " + str(b2_nonfire[0]) + " lbs. Demand is " + str(loads[2]) + " lbs. Ratio = " + str(ratios[2]) + ". FAIL!")
-    else:
-        st.write("Non-fire capacity is " + str(b2_nonfire[0]) + " lbs. Demand is " + str(loads[2]) + " lbs. Ratio = " + str(ratios[2]) + ". PASS!")
-    fig
-
-
-# FIRE CASE
-
-if column_width - char_depth*2 >= beam1_width:
-    b1_f_rect_x_pos = column_width/2-beam1_width/2
-else:
-    b1_f_rect_x_pos = char_depth
-
-if column_width - char_depth*2 >= beam2_width:
-    b2_f_rect_x_pos = column_width/2-beam2_width/2
-else:
-    b2_f_rect_x_pos = char_depth
-
-
-#repeated code here because it doesn't let you put the same shape on two figures
-column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
-beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
-beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
-column_outline2 = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black', fill=False, ls='--')
-
-b1_f_bearing_area = Rectangle([b1_f_rect_x_pos, column_depth-beam1_route_length],b1_fire[1],b1_fire[2], angle=0, facecolor='magenta', edgecolor='black')
-b2_f_bearing_area = Rectangle([b2_f_rect_x_pos, char_depth],b2_fire[1],b2_fire[2], angle=0, facecolor='magenta', edgecolor='black')
-
-column_char_outline = Rectangle([char_depth,char_depth], column_width - char_depth*2, column_depth-char_depth*2, angle=0, edgecolor='red', fill = False)
-
-fig = Figure()
-f = fig.gca()
-
-f.add_patch(column_outline)
-f.add_patch(beam1_outline)
-f.add_patch(beam2_outline)
-f.add_patch(column_outline2)
-
-f.add_patch(b1_f_bearing_area)
-f.add_patch(b2_f_bearing_area)
-
-f.add_patch(column_char_outline)
-
-f.set_xlim(-column_width, column_width * 2)
-f.set_ylim(-column_depth, column_depth * 2)
-f.set_aspect('equal')
-
-f.text(-column_width*0.6,column_depth*1.9, (FRR + ' Fire Case'), fontsize = 5, ha = 'center')
-f.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_fire[1],3)) + " inch wide x " + str(round(b1_fire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
-f.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_fire[1],3)) + " inch wide x " + str(round(b2_fire[2],3)) + " inch long."), fontsize = 5, ha = 'center')
-
-
-with col2:
-    if ratios[1] == 100000:
-        st.write("After " + FRR + " fire, beam 1 has no bearing material remaining. Increase bearing length.")
-    elif ratios[1] > 1:
-        st.write(FRR + " fire capacity is " + str(b1_fire[0]) + " lbs. Demand is " + str(loads[1]) + " lbs. Ratio = " + str(ratios[1]) + ". FAIL!")
-    else:
-        st.write(FRR + " fire capacity is " + str(b1_fire[0]) + " lbs. Demand is " + str(loads[1]) + " lbs. Ratio = " + str(ratios[1]) + ". PASS!")
-    if ratios[3] == 100000:
-        st.write("After " + FRR + " fire, beam 2 has no bearing material remaining. Increase bearing length.")
-    elif ratios[3] > 1:
-        st.write(FRR + " fire capacity is " + str(b2_fire[0]) + " lbs. Demand is " + str(loads[3]) + " lbs. Ratio = " + str(ratios[3]) + ". FAIL!")
-    else:
-        st.write(FRR + " fire capacity is " + str(b2_fire[0]) + " lbs. Demand is " + str(loads[3]) + " lbs. Ratio = " + str(ratios[3]) + ". PASS!")
-    fig
-
-
-
-'''
+  
 
 
 
