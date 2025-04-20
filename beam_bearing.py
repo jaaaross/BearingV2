@@ -164,6 +164,11 @@ if len(event.selection['rows']):
     b1_nonfire_length = calc_df.iloc[selected_row]['B1 Nonfire Bearing Length']
     b2_nonfire_width = calc_df.iloc[selected_row]['B2 Nonfire Bearing Width']
     b2_nonfire_length = calc_df.iloc[selected_row]['B2 Nonfire Bearing Length']
+
+    b1_fire_width = calc_df.iloc[selected_row]['B1 Fire Bearing Width']
+    b1_fire_length = calc_df.iloc[selected_row]['B1 Fire Bearing Length']
+    b2_fire_width = calc_df.iloc[selected_row]['B2 Fire Bearing Width']
+    b2_fire_length = calc_df.iloc[selected_row]['B2 Fire Bearing Length']
     
     col1, col2 = st.columns(2)
 
