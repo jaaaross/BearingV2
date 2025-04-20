@@ -206,15 +206,17 @@ if len(event.selection['rows']):
     nf = fig.gca()
     
     nf.add_patch(column_outline)
-    #nf.add_patch(beam1_outline)
-    #nf.add_patch(beam2_outline)
-    #nf.add_patch(b1_nf_bearing_area)
-    #nf.add_patch(b2_nf_bearing_area)
-    #nf.add_patch(column_outline2)
+    nf.add_patch(beam1_outline)
+    nf.add_patch(beam2_outline)
+    nf.add_patch(b1_nf_bearing_area)
+    nf.add_patch(b2_nf_bearing_area)
+    nf.add_patch(column_outline2)
     
-    #nf.set_xlim(-column_width, column_width * 2)
-    #nf.set_ylim(-column_depth, column_depth * 2)
-    #nf.set_aspect('equal')
+    nf.set_xlim(-column_width, column_width * 2)
+    nf.set_ylim(-column_depth, column_depth * 2)
+    nf.set_aspect('equal')
+
+    nf.show
 
 
 
