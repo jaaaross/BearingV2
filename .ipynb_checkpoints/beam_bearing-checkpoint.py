@@ -34,14 +34,6 @@ if uploaded_file is not None:
 
 
 def run_check(node_df):
-    #st.write(node_df['FRR'])
-    #if node_df['FRR'] == "0":
-    #    char_depth = 0
-    #elif node_df['FRR'] == "1":
-    #    char_depth = 1.8
-    #elif node_df['FRR'] == "2":
-    #    char_depth = 3.2
-    
     BearingNode = bbm.BearingNode(
         node_df['B1 Width'],
         node_df['B1 Depth'],
@@ -56,13 +48,7 @@ def run_check(node_df):
         node_df['C Width'],
         node_df['C Depth'],
         node_df['F_c_perp'],
-        3.2
-        #if node_df['FRR'] == 0:
-        #    return 0
-        #elif node_df['FRR'] == 1:
-        #    return 1.8
-        #elif node_df['FRR'] == 2:
-        #    return 3.2
+        node_df['Char Depth']
         )
 
     b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads = BearingNode.call_calculation()
