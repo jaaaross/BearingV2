@@ -6,12 +6,6 @@ from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
 from matplotlib.collections import PatchCollection
 
-# For Later Versions - a 20mm subtraction of bearing width to account for the chamfer that is generally done around corners at connection to simplify CNC
-# - the ignoring of remaining column material around the connection when the remaining material is not thick enough to rely on it being there after transport
-# - would really like to add a report print function for easy documentation
-# - in far future, would like to be able to load in a building from ETABS or similar, have it parse thru member sizes, loads, etc, then either the user adjusts
-# bearing lengths or the software determines them to pass the bearing check at a certain percentage. After all of this, I want to print all of this information
-# as a table that can be included in design drawings.
 
 st.set_page_config(layout="wide")
 
@@ -19,7 +13,14 @@ st.title("Timber Beam Bearing Calculator V2")
 
 ''' The idea here is to speed up the overall process of designing and detailing buildings with many different timber bearing connections. This will
 allow the engineer to upload a set of parameters and quickly calculate viable connection designs then print a schedule for their drawing. Please upload
-a CSV file in the proper format.'''
+a CSV file in the proper format. See below for the proper format:
+
+Label,B1 Width,B1 Depth,B1 Route Length,B1 DL,B1 LL,B2 Width,B2 Depth,B2 Route Length,B2 DL,B2 LL,C Width,C Depth,F_c_perp,Char Depth
+BC1,10,20,4,8000,6000,8,18,3.5,8000,6000,12,12,400,3.2
+BC2,8,20,5,8000,6000,9,18,4,8000,6000,12,12,400,1.8
+BC3,8,20,4.5,8000,6000,10,18,5,8000,6000,12,12,400,0.9
+
+[I realize its not pretty or elegant but I wanted to get it built at 80% and in because I believe its the end of the course!]'''
 
 
 import streamlit as st
@@ -113,19 +114,19 @@ for row in calculation:
 
 capacities_df.insert(1, "B1 Factored Load", b1_factored_load, True)
 capacities_df.insert(2, "B1 Nonfire Case Capacity", b1_nonfire_capacity, True)
-capacities_df.insert(3, "Ratio1", capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity'], True)
+capacities_df.insert(3, "B1 NF Ratio", capacities_df['B1 Factored Load'] / capacities_df['B1 Nonfire Case Capacity'], True)
 
 capacities_df.insert(4, "B1 Unfactored Load", b1_unfactored_load, True)
 capacities_df.insert(5, "B1 Fire Case Capacity", b1_fire_capacity, True)
-capacities_df.insert(6, "Ratio2", capacities_df['B1 Unfactored Load'] / capacities_df['B1 Fire Case Capacity'], True)
+capacities_df.insert(6, "B1 F Ratio", capacities_df['B1 Unfactored Load'] / capacities_df['B1 Fire Case Capacity'], True)
 
 capacities_df.insert(7, "B2 Factored Load", b2_factored_load, True)
 capacities_df.insert(8, "B2 Nonfire Case Capacity", b2_nonfire_capacity, True)
-capacities_df.insert(9, "Ratio3", capacities_df['B2 Factored Load'] / capacities_df['B2 Nonfire Case Capacity'], True)
+capacities_df.insert(9, "B2 NF Ratio", capacities_df['B2 Factored Load'] / capacities_df['B2 Nonfire Case Capacity'], True)
 
 capacities_df.insert(10, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(11, "B2 Fire Case Capacity", b2_fire_capacity, True)
-capacities_df.insert(12, "Ratio4", capacities_df['B2 Unfactored Load'] / capacities_df['B2 Fire Case Capacity'], True)
+capacities_df.insert(12, "B2 F Ratio", capacities_df['B2 Unfactored Load'] / capacities_df['B2 Fire Case Capacity'], True)
 
 calc_df.insert(1, 'B1 Nonfire Bearing Width', b1_nonfire_bearing_width, True)
 calc_df.insert(2, 'B1 Nonfire Bearing Length', b1_nonfire_bearing_length, True)
@@ -262,7 +263,7 @@ if len(event.selection['rows']):
     with col2:
         fig
 
-#test
+
 
 
     
