@@ -57,9 +57,6 @@ def run_check(node_df):
 
 calculation = node_df.apply(run_check, axis=1)
 
-st.write(calculation)
-
-
 capacities_df = node_df.copy()
 
 calc_df = node_df.copy()
