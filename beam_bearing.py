@@ -181,7 +181,7 @@ if len(event.selection['rows']):
     col1, col2 = st.columns(2)
 
     
-
+    #NONFIRE CASE
     
     column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
     beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
@@ -221,11 +221,57 @@ if len(event.selection['rows']):
     nf.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_nonfire_width,3)) + " inch wide x " + str(round(b2_nonfire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
 
     with col1:
+        if beam1_route_length + beam2_route_length > column_depth:
+            st.write('Your beam routing is overlapping. Please reduce one side.')
+
         fig
 
+    #FIRE CASE
+    if column_width - char_depth*2 >= beam1_width:
+        b1_f_rect_x_pos = column_width/2-beam1_width/2
+    else:
+        b1_f_rect_x_pos = char_depth
+    
+    if column_width - char_depth*2 >= beam2_width:
+        b2_f_rect_x_pos = column_width/2-beam2_width/2
+    else:
+        b2_f_rect_x_pos = char_depth
+    
+    
+    #repeated code here because it doesn't let you put the same shape on two figures
+    column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
+    beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
+    beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
+    column_outline2 = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black', fill=False, ls='--')
+    
+    b1_f_bearing_area = Rectangle([b1_f_rect_x_pos, column_depth-beam1_route_length],b1_fire_wdith,b1_fire_length, angle=0, facecolor='magenta', edgecolor='black')
+    b2_f_bearing_area = Rectangle([b2_f_rect_x_pos, char_depth],b2_fire_wdith,b2_fire_length, angle=0, facecolor='magenta', edgecolor='black')
+    
+    column_char_outline = Rectangle([char_depth,char_depth], column_width - char_depth*2, column_depth-char_depth*2, angle=0, edgecolor='red', fill = False)
+    
+    fig = Figure()
+    f = fig.gca()
+    
+    f.add_patch(column_outline)
+    f.add_patch(beam1_outline)
+    f.add_patch(beam2_outline)
+    f.add_patch(column_outline2)
+    
+    f.add_patch(b1_f_bearing_area)
+    f.add_patch(b2_f_bearing_area)
+    
+    f.add_patch(column_char_outline)
+    
+    f.set_xlim(-column_width, column_width * 2)
+    f.set_ylim(-column_depth, column_depth * 2)
+    f.set_aspect('equal')
+    
+    f.text(-column_width*0.6,column_depth*1.9, (FRR + ' Fire Case'), fontsize = 5, ha = 'center')
+    f.text(column_width/2, column_depth*1.75, ("Beam 1 Effective Bearing Area = " + str(round(b1_fire_width,3)) + " inch wide x " + str(round(b1_fire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
+    f.text(column_width/2, -column_depth*0.8, ("Beam 2 Effective Bearing Area = " + str(round(b2_fire_width,3)) + " inch wide x " + str(round(b2_fire_length,3)) + " inch long."), fontsize = 5, ha = 'center')
 
-
-
+    with col2:
+        fig
 
 
 
