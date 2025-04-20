@@ -154,8 +154,6 @@ calc_df.insert(6, 'B2 Nonfire Bearing Length', b2_nonfire_bearing_length, True)
 calc_df.insert(7, 'B2 Fire Bearing Width', b2_fire_bearing_width, True)
 calc_df.insert(8, 'B2 Fire Bearing Length', b2_fire_bearing_length, True)
 
-st.write(capacities_df)
-
 
 output_df = node_df.copy()
 
@@ -175,10 +173,17 @@ if len(event.selection['rows']):
     column_width = node_df.iloc[selected_row]['C Width']
     column_depth = node_df.iloc[selected_row]['C Depth']
 
+    
+    b1_nonfire_width = calc_df.iloc[selected_row]['B1 Nonfire Bearing Width']
+    b1_nonfire_length = calc_df.iloc[selected_row]['B1 Nonfire Bearing Length']
+    b2_nonfire_width = calc_df.iloc[selected_row]['B2 Nonfire Bearing Width']
+    b2_nonfire_length = calc_df.iloc[selected_row]['B2 Nonfire Bearing Length']
+    
     col1, col2 = st.columns(2)
 
-    beam1_route_length
-    beam2_route_length
+    
+
+    
     column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
     beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
     beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
@@ -193,9 +198,11 @@ if len(event.selection['rows']):
         b2_nf_rect_x_pos = column_width/2-beam2_width/2
     else:
         b2_nf_rect_x_pos = 0
+
+ 
     
-    b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire[2]],b1_nonfire[1],b1_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
-    b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0],b2_nonfire[1],b2_nonfire[2], angle=0, facecolor='magenta', edgecolor='red')
+    b1_nf_bearing_area = Rectangle([b1_nf_rect_x_pos, column_depth-b1_nonfire_length, b1_nonfire_width, b1_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
+    b2_nf_bearing_area = Rectangle([b2_nf_rect_x_pos, 0],b2_nonfire_width,b2_nonfire_length, angle=0, facecolor='magenta', edgecolor='red')
     
     fig = Figure()
     nf = fig.gca()
