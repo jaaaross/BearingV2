@@ -69,13 +69,14 @@ def run_check(node_df):
 
     return b1_nonfire, b2_nonfire, b1_fire, b2_fire, loads 
 
-df_capacity = node_df.apply(run_check, axis=1)
+calculation = node_df.apply(run_check, axis=1)
 
-st.write(df_capacity)
+st.write(calculation)
 
 
 capacities_df = node_df.copy()
 
+calc_df = node_df.copy()
         
 
 capacities_df.drop(columns=['B1 Width', 'B1 Depth', 'B1 Route Length', 'B2 Width', 'B2 Depth', 'B2 Route Length', 'C Width', 'C Depth', 'B1 DL', 'B1 LL', 'B2 DL', 'B2 LL', 'F_c_perp', 'FRR'], axis=1, inplace=True)
@@ -84,20 +85,43 @@ b1_nonfire_capacity = []
 b2_nonfire_capacity = []
 b1_fire_capacity = []
 b2_fire_capacity = []
+
+b1_nonfire_bearing_width = []
+b2_nonfire_bearing_width = []
+b1_nonfire_bearing_length = []
+b2_nonfire_bearing_length = []
+
+b1_fire_bearing_width = []
+b2_fire_bearing_width = []
+b1_fire_bearing_length = []
+b2_fire_bearing_length = []
+    
 b1_factored_load = []
 b1_unfactored_load = []
 b2_factored_load = []
 b2_unfactored_load = []
+
 b1_nonfire_ratio = []
 b1_fire_ratio = []
 b2_nonfire_ratio = []
 b2_fire_ratio = []
 
-for row in df_capacity:
+for row in calculation:
     b1_nonfire_capacity.append(row[0][0])
     b2_nonfire_capacity.append(row[1][0])
     b1_fire_capacity.append(row[2][0])
     b2_fire_capacity.append(row[3][0])
+
+    b1_nonfire_bearing_width.append(row[0][1])
+    b2_nonfire_bearing_width.append(row[1][1])
+    b1_nonfire_bearing_length.append(row[0][2])
+    b2_nonfire_bearing_length.append(row[1][2])
+
+    b1_fire_bearing_width.append(row[2][1])
+    b2_fire_bearing_width.append(row[3][1])
+    b1_fire_bearing_length.append(row[2][2])
+    b2_fire_bearing_length.append(row[3][2])
+    
     b1_factored_load.append(row[4][0])
     b1_unfactored_load.append(row[4][1])
     b2_factored_load.append(row[4][2])
@@ -120,36 +144,44 @@ capacities_df.insert(10, "B2 Unfactored Load", b2_unfactored_load, True)
 capacities_df.insert(11, "B2 Fire Case Capacity", b2_fire_capacity, True)
 capacities_df.insert(12, "Ratio4", capacities_df['B2 Unfactored Load'] / capacities_df['B2 Fire Case Capacity'], True)
 
+calc_df.insert('B1 Nonfire Bearing Width', b1_nonfire_bearing_width, True)
+calc_df.insert('B1 Nonfire Bearing Length', b1_nonfire_bearing_length, True)
+calc_df.insert('B1 Fire Bearing Width', b1_fire_bearing_width, True)
+calc_df.insert('B1 Fire Bearing Length', b1_fire_bearing_length, True)
+
+calc_df.insert('B2 Nonfire Bearing Width', b2_nonfire_bearing_width, True)
+calc_df.insert('B2 Nonfire Bearing Length', b2_nonfire_bearing_length, True)
+calc_df.insert('B2 Fire Bearing Width', b2_fire_bearing_width, True)
+calc_df.insert('B2 Fire Bearing Length', b2_fire_bearing_length, True)
+
 st.write(capacities_df)
+
+
+
 
 
 output_df = node_df.copy()
 
-st.write('Click the checkbox in the far left column.')
-
 event = st.dataframe(
-    output_df,
+    capacities_df,
     on_select='rerun',
     selection_mode='single-row'
 )
 
 if len(event.selection['rows']):
     selected_row = event.selection['rows'][0]
-    country = output_df.iloc[selected_row]['B1 DL']
-    capital = output_df.iloc[selected_row]['B2 DL']
 
-    st.write(country + capital)
-
-
-    beam1_width = output_df.iloc[selected_row]['B1 Width']
-    beam2_width = output_df.iloc[selected_row]['B2 Width']
-    beam1_route_length = output_df.iloc[selected_row]['B1 Route Length']
-    beam2_route_length = output_df.iloc[selected_row]['B2 Route Length']
-    column_width = output_df.iloc[selected_row]['C Width']
-    column_depth = output_df.iloc[selected_row]['C Depth']
+    beam1_width = node_df.iloc[selected_row]['B1 Width']
+    beam2_width = node_df.iloc[selected_row]['B2 Width']
+    beam1_route_length = node_df.iloc[selected_row]['B1 Route Length']
+    beam2_route_length = node_df.iloc[selected_row]['B2 Route Length']
+    column_width = node_df.iloc[selected_row]['C Width']
+    column_depth = node_df.iloc[selected_row]['C Depth']
 
     col1, col2 = st.columns(2)
-    
+
+    beam1_route_length
+    beam2_route_length
     column_outline = Rectangle([0, 0], column_width, column_depth, angle=0, facecolor='peachpuff', edgecolor='black')
     beam1_outline = Rectangle([column_width/2-beam1_width/2, column_depth-beam1_route_length], beam1_width, column_depth*0.8, angle=0, facecolor='green', edgecolor='black')
     beam2_outline = Rectangle([column_width/2-beam2_width/2, beam2_route_length], beam2_width, -column_depth*0.8, angle=0, facecolor='blue', edgecolor='black')
