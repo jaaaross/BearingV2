@@ -141,6 +141,7 @@ calc_df.insert(8, 'B2 Fire Bearing Length', b2_fire_bearing_length, True)
 
 output_df = node_df.copy()
 
+st.write('You can click on the check box in the left most column to see the specific column node.')
 event = st.dataframe(
     capacities_df,
     on_select='rerun',
